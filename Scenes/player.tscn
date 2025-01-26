@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://ca7sp6dmf8gts"]
+
+[ext_resource type="Script" path="res://Scripts/Player.cs" id="1_gehxb"]
+[ext_resource type="Texture2D" uid="uid://0cijkcmn54cn" path="res://assets/chars_assets/rogues.png" id="1_llj4m"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bvpag"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wd73v"]
+radius = 24.0832
+
+[node name="Player" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_gehxb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_llj4m")
+region_enabled = true
+region_rect = Rect2(3, 33, 22, 29)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1.6, 1.6)
+position_smoothing_enabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_bvpag")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_wd73v")
+
+[connection signal="area_entered" from="Area2D" to="." method="_PotionPicked"]

@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://c1w7b5qatdb3a"]
+
+[ext_resource type="Texture2D" uid="uid://c4607neu1lbmy" path="res://assets/items_assets/items.png" id="1_s71ma"]
+[ext_resource type="Script" path="res://Scripts/ExpPotion.cs" id="2_iln0c"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sdrqa"]
+radius = 5.0
+height = 18.0
+
+[node name="PotionBody" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_s71ma")
+region_enabled = true
+region_rect = Rect2(12, 616, 8, 17)
+
+[node name="Area2D" type="Area2D" parent="."]
+script = ExtResource("2_iln0c")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CapsuleShape2D_sdrqa")
