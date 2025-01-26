@@ -4,6 +4,8 @@ using System;
 public partial class Player : CharacterBody2D
 {
     private int _lvl = 0;
+    private int _healthValue = 100;
+    [Export] private ProgressBar _healthBar;
     [Export] private Label _label;
 
     [Export]
@@ -12,6 +14,8 @@ public partial class Player : CharacterBody2D
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
+        _healthBar.Value = _healthValue;
+        _label.Text = $"Lvl: {_lvl}";
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -42,7 +46,17 @@ public partial class Player : CharacterBody2D
     }
 	public void _PotionPicked(Area2D area)
 	{
-		_label.Text = $"Lvl: {++_lvl}";
-		GD.Print("Potion picked!");	
+        if (area is ExpPotion expPotion)
+        {
+            expPotion.PotionPicked(_label, ref _lvl);
+        }   
+        else if (area is HealthPotion healthPotion)
+        {
+            healthPotion.PotionPicked(_healthBar, ref _healthValue);
+        }
+        else if (area is Chest chest)
+        {
+            chest.OpenChest();
+        }
 	}
 }

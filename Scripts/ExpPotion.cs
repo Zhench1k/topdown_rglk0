@@ -3,15 +3,9 @@ using System;
 
 public partial class ExpPotion : Area2D
 {
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
+	public void PotionPicked( Label _label, ref int _lvl)
 	{
+		_label.Text = $"Lvl: {++_lvl}";
+		GD.Print("ExpPotion picked!");
 	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
-
-		
 }

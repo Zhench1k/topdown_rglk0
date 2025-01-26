@@ -1,16 +1,24 @@
-[gd_scene load_steps=5 format=3 uid="uid://ca7sp6dmf8gts"]
+[gd_scene load_steps=7 format=3 uid="uid://ca7sp6dmf8gts"]
 
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_gehxb"]
 [ext_resource type="Texture2D" uid="uid://0cijkcmn54cn" path="res://assets/chars_assets/rogues.png" id="1_llj4m"]
+[ext_resource type="Texture2D" uid="uid://ol8nl3s48frj" path="res://assets/tiles_assets/Atlas1.tres" id="3_1mla4"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bvpag"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wd73v"]
 radius = 24.0832
 
-[node name="Player" type="CharacterBody2D"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f1ig8"]
+texture = ExtResource("3_1mla4")
+texture_margin_left = 1.0
+texture_margin_right = 1.0
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_healthBar", "_label")]
 motion_mode = 1
 script = ExtResource("1_gehxb")
+_healthBar = NodePath("CanvasLayer/GUI/MarginBox/VBoxContainer/HealthBar")
+_label = NodePath("CanvasLayer/GUI/MarginBox/VBoxContainer/Lvl")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_llj4m")
@@ -25,8 +33,42 @@ position_smoothing_enabled = true
 shape = SubResource("CapsuleShape2D_bvpag")
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_wd73v")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GUI" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginBox" type="MarginContainer" parent="CanvasLayer/GUI"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 9.0
+offset_right = 364.0
+offset_bottom = 95.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/GUI/MarginBox"]
+layout_mode = 2
+
+[node name="HealthBar" type="ProgressBar" parent="CanvasLayer/GUI/MarginBox/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxTexture_f1ig8")
+value = 100.0
+
+[node name="Lvl" type="Label" parent="CanvasLayer/GUI/MarginBox/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 24
+text = "Lvl: 0"
+metadata/_edit_use_anchors_ = true
 
 [connection signal="area_entered" from="Area2D" to="." method="_PotionPicked"]

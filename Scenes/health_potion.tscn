@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://csfd6bfkxkhg6"]
+
+[ext_resource type="Texture2D" uid="uid://c4607neu1lbmy" path="res://assets/items_assets/items.png" id="1_02cou"]
+[ext_resource type="Script" path="res://Scripts/HealthPotion.cs" id="2_brlfq"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wkkpp"]
+radius = 6.0
+height = 16.0
+
+[node name="health_potion" type="Node2D"]
+visibility_layer = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_02cou")
+region_enabled = true
+region_rect = Rect2(42, 618, 11, 15)
+
+[node name="Area2D" type="Area2D" parent="."]
+script = ExtResource("2_brlfq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CapsuleShape2D_wkkpp")
