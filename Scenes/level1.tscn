@@ -23,10 +23,13 @@ position = Vector2(488, 375)
 position = Vector2(664, 372)
 
 [node name="Chest" parent="." instance=ExtResource("5_4rtyk")]
-position = Vector2(476, 508)
+position = Vector2(496, 525)
 
 [node name="Chest2" parent="." instance=ExtResource("5_4rtyk")]
-position = Vector2(615, 524)
+position = Vector2(599, 521)
 
 [node name="Chest3" parent="." instance=ExtResource("5_4rtyk")]
-position = Vector2(706, 470)
+position = Vector2(640, 583)
+
+[node name="Chest4" parent="." instance=ExtResource("5_4rtyk")]
+position = Vector2(688, 505)

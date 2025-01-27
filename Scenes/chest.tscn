@@ -21,3 +21,8 @@ _potions = Array[PackedScene]([ExtResource("3_h6vut"), ExtResource("4_fj87w")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_3gli1")
+
+[connection signal="area_entered" from="Area2D" to="Area2D" method="OnBodyEntered"]
+[connection signal="area_exited" from="Area2D" to="Area2D" method="OnBodyExited"]
+[connection signal="body_entered" from="Area2D" to="Area2D" method="OnBodyEntered"]
+[connection signal="body_exited" from="Area2D" to="Area2D" method="OnBodyExited"]
