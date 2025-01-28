@@ -16,9 +16,10 @@ texture = ExtResource("3_1mla4")
 texture_margin_left = 1.0
 texture_margin_right = 1.0
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_healthBar", "_label")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("Sprite", "_healthBar", "_label")]
 motion_mode = 1
 script = ExtResource("1_gehxb")
+Sprite = NodePath("Sprite2D")
 _potions = Array[PackedScene]([ExtResource("2_sl38h"), ExtResource("3_m7tnn")])
 _healthBar = NodePath("CanvasLayer/GUI/MarginBox/VBoxContainer/HealthBar")
 _label = NodePath("CanvasLayer/GUI/MarginBox/VBoxContainer/Lvl")

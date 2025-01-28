@@ -6,6 +6,7 @@ public partial class Player : CharacterBody2D
     private int _lvl = 0;
     private int _healthValue = 100;
     private Item _currentItem;
+    [Export] public Sprite2D Sprite;
     [Export] public PackedScene[] _potions;
     [Export] private ProgressBar _healthBar;
     [Export] private Label _label;
@@ -25,10 +26,12 @@ public partial class Player : CharacterBody2D
 
         if (Input.IsActionPressed("right"))
         {
+            Sprite.FlipH = true;
             velocity.X += 1;
         }
         if (Input.IsActionPressed("left"))
         {
+            Sprite.FlipH = false;
             velocity.X -= 1;
         }
         if (Input.IsActionPressed("down"))
