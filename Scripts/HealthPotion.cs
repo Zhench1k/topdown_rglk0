@@ -1,12 +1,14 @@
 using Godot;
 using System;
 
-public partial class HealthPotion : Area2D
+public partial class HealthPotion : Item
 {
-	public void PotionPicked(ProgressBar _healthBar, ref int _healthValue)
+	public ProgressBar _healthBar;
+	public int _healthValue;
+	public override void Use()
 	{
-		_healthValue += new Random().Next(5, 20);
 		_healthBar.Value = _healthValue;
 		GD.Print("HealthPotion picked!");
+		base.Use();
 	}
 }

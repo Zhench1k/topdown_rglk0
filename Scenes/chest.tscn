@@ -1,9 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://b85tybiv71y68"]
+[gd_scene load_steps=4 format=3 uid="uid://b85tybiv71y68"]
 
 [ext_resource type="Texture2D" uid="uid://bp5qai37jjgi6" path="res://assets/tiles_assets/tiles.png" id="1_oxfa1"]
 [ext_resource type="Script" path="res://Scripts/Chest.cs" id="2_qkvai"]
-[ext_resource type="PackedScene" uid="uid://c1w7b5qatdb3a" path="res://Scenes/exp_potion.tscn" id="3_h6vut"]
-[ext_resource type="PackedScene" uid="uid://csfd6bfkxkhg6" path="res://Scenes/health_potion.tscn" id="4_fj87w"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3gli1"]
 size = Vector2(24, 20)
@@ -17,12 +15,6 @@ region_rect = Rect2(4, 550, 23, 19)
 
 [node name="Area2D" type="Area2D" parent="."]
 script = ExtResource("2_qkvai")
-_potions = Array[PackedScene]([ExtResource("3_h6vut"), ExtResource("4_fj87w")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_3gli1")
-
-[connection signal="area_entered" from="Area2D" to="Area2D" method="OnBodyEntered"]
-[connection signal="area_exited" from="Area2D" to="Area2D" method="OnBodyExited"]
-[connection signal="body_entered" from="Area2D" to="Area2D" method="OnBodyEntered"]
-[connection signal="body_exited" from="Area2D" to="Area2D" method="OnBodyExited"]

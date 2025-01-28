@@ -5,11 +5,11 @@ public partial class Player : CharacterBody2D
 {
     private int _lvl = 0;
     private int _healthValue = 100;
+    private Item _currentItem;
+    [Export] public PackedScene[] _potions;
     [Export] private ProgressBar _healthBar;
     [Export] private Label _label;
-
-    [Export]
-    public float Speed = 200.0f;
+    [Export] public float Speed = 200.0f;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -43,20 +43,41 @@ public partial class Player : CharacterBody2D
         velocity = velocity.Normalized() * Speed;
         Velocity = velocity;
         MoveAndSlide();
+
+        if (_currentItem != null && Input.IsActionJustPressed("interact"))
+        {
+            _currentItem.Use();
+        }
     }
-	public void _PotionPicked(Area2D area)
+
+
+    private void _OnAreaExited(Area2D area)
+    {
+        if (area is Item item)
+        {
+            _currentItem = null;
+        }
+    }
+
+	public void _OnAreaEntered(Area2D area)
 	{
         if (area is ExpPotion expPotion)
-        {
-            expPotion.PotionPicked(_label, ref _lvl);
-        }   
+        {   
+            expPotion._label = _label;
+            expPotion._lvl = ++_lvl;
+            _currentItem = expPotion;
+        }  
         else if (area is HealthPotion healthPotion)
         {
-            healthPotion.PotionPicked(_healthBar, ref _healthValue);
+            _healthValue += new Random().Next(5, 20);
+            healthPotion._healthValue = _healthValue;
+            healthPotion._healthBar = _healthBar;
+            _currentItem = healthPotion;
         }
         else if (area is Chest chest)
         {
-            chest.OpenChest();
-        }
+            chest._potions = _potions;
+            _currentItem = chest;
+        } 
 	}
 }
