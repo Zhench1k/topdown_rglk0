@@ -13,8 +13,6 @@
 use_parent_material = true
 tile_set = ExtResource("1_v63mp")
 script = ExtResource("2_3sgj8")
-_width = 100
-_height = 100
 
 [node name="Player" parent="." instance=ExtResource("2_tfkw6")]
 position = Vector2(578, 444)

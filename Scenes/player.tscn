@@ -1,10 +1,47 @@
-[gd_scene load_steps=9 format=3 uid="uid://ca7sp6dmf8gts"]
+[gd_scene load_steps=12 format=3 uid="uid://ca7sp6dmf8gts"]
 
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_gehxb"]
 [ext_resource type="Texture2D" uid="uid://0cijkcmn54cn" path="res://assets/chars_assets/rogues.png" id="1_llj4m"]
 [ext_resource type="PackedScene" uid="uid://c1w7b5qatdb3a" path="res://Scenes/exp_potion.tscn" id="2_sl38h"]
 [ext_resource type="Texture2D" uid="uid://ol8nl3s48frj" path="res://assets/tiles_assets/Atlas1.tres" id="3_1mla4"]
 [ext_resource type="PackedScene" uid="uid://csfd6bfkxkhg6" path="res://Scenes/health_potion.tscn" id="3_m7tnn"]
+
+[sub_resource type="Animation" id="Animation_0xons"]
+resource_name = "idle_breathe"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.333333, 0.666667, 1, 1.33333, 1.66667, 1.96667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1.006), Vector2(1.01, 1.016), Vector2(1.02, 1.026), Vector2(1.03, 1.036), Vector2(1.02, 1.026), Vector2(1.01, 1.016), Vector2(1, 1.007)]
+}
+
+[sub_resource type="Animation" id="Animation_m1d32"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.09, 1.097)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_orc8f"]
+_data = {
+"RESET": SubResource("Animation_m1d32"),
+"idle_breathe": SubResource("Animation_0xons")
+}
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bvpag"]
 
@@ -25,6 +62,8 @@ _healthBar = NodePath("CanvasLayer/GUI/MarginBox/VBoxContainer/HealthBar")
 _label = NodePath("CanvasLayer/GUI/MarginBox/VBoxContainer/Lvl")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -0.75)
+scale = Vector2(1.09, 1.097)
 texture = ExtResource("1_llj4m")
 region_enabled = true
 region_rect = Rect2(3, 33, 22, 29)
@@ -32,6 +71,11 @@ region_rect = Rect2(3, 33, 22, 29)
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(1.6, 1.6)
 position_smoothing_enabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_orc8f")
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_bvpag")

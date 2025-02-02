@@ -6,6 +6,7 @@ public partial class Player : CharacterBody2D
     private int _lvl = 0;
     private int _healthValue = 100;
     private Item _currentItem;
+    private AnimationPlayer _animationPlayer;
     [Export] public Sprite2D Sprite;
     [Export] public PackedScene[] _potions;
     [Export] private ProgressBar _healthBar;
@@ -17,6 +18,8 @@ public partial class Player : CharacterBody2D
     {
         _healthBar.Value = _healthValue;
         _label.Text = $"Lvl: {_lvl}";
+        _animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
+        _animationPlayer.Play("idle_breathe");
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -50,6 +53,18 @@ public partial class Player : CharacterBody2D
         if (_currentItem != null && Input.IsActionJustPressed("interact"))
         {
             _currentItem.Use();
+        }
+
+        if (velocity == Vector2.Zero)
+        {
+            if (!_animationPlayer.IsPlaying() || _animationPlayer.CurrentAnimation != "idle_breathe")
+            {
+                _animationPlayer.Play("idle_breathe");
+            }
+        }
+        else
+        {
+            _animationPlayer.Stop();
         }
     }
 
