@@ -3,26 +3,27 @@ using System;
 
 public partial class Player : CharacterBody2D
 {
-    private int _lvl = 0;
-    private int _healthValue = 100;
-    private Item _currentItem;
-    private AnimationPlayer _animationPlayer;
+    public int _lvl = 0;
+    public int _healthValue = 100;
+    public int _expValue = 0;
+    public Item _currentItem;
+    public Conversation _currentNpc;
+    [Export] private AnimationPlayer _animationPlayer;
     [Export] public Sprite2D Sprite;
     [Export] public PackedScene[] _potions;
-    [Export] private ProgressBar _healthBar;
-    [Export] private Label _label;
+    [Export] public ProgressBar _healthBar;
+    [Export] public ProgressBar _expBar;
+    [Export] public Label _label;
     [Export] public float Speed = 200.0f;
 
-    // Called when the node enters the scene tree for the first time.
+
     public override void _Ready()
     {
         _healthBar.Value = _healthValue;
+        _expBar.Value = _expValue;
         _label.Text = $"Lvl: {_lvl}";
-        _animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
-        _animationPlayer.Play("idle_breathe");
     }
 
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
     {
         Vector2 velocity = Vector2.Zero;
@@ -52,8 +53,14 @@ public partial class Player : CharacterBody2D
 
         if (_currentItem != null && Input.IsActionJustPressed("interact"))
         {
-            _currentItem.Use();
+            _currentItem.Use(this);
         }
+        
+        if (_currentNpc != null && Input.IsActionJustPressed("interact"))
+        {
+            _currentNpc.StartConversation(this);
+        }
+       
 
         if (velocity == Vector2.Zero)
         {
@@ -66,6 +73,12 @@ public partial class Player : CharacterBody2D
         {
             _animationPlayer.Stop();
         }
+        if (_expValue == 100)
+		{
+			_expValue = 0;
+			_expBar.Value = _expValue;
+			_label.Text = $"Lvl: {++_lvl}";
+		}
     }
 
 
@@ -75,21 +88,25 @@ public partial class Player : CharacterBody2D
         {
             _currentItem = null;
         }
+        if (area is Conversation npc)
+        {
+            _currentNpc = null;
+        }
     }
+
 
 	public void _OnAreaEntered(Area2D area)
 	{
-        if (area is ExpPotion expPotion)
-        {   
-            expPotion._label = _label;
-            expPotion._lvl = ++_lvl;
+        if (area is PotsNpc potsNpc)
+        {
+            _currentNpc = potsNpc;
+        }
+        else if (area is ExpPotion expPotion)
+        {
             _currentItem = expPotion;
         }  
         else if (area is HealthPotion healthPotion)
         {
-            _healthValue += new Random().Next(5, 20);
-            healthPotion._healthValue = _healthValue;
-            healthPotion._healthBar = _healthBar;
             _currentItem = healthPotion;
         }
         else if (area is Chest chest)

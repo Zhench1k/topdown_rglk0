@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bd68e2sgwpd4w"]
+[gd_scene load_steps=8 format=3 uid="uid://bd68e2sgwpd4w"]
 
 [ext_resource type="TileSet" uid="uid://b811ju0jxebii" path="res://assets/tiles_assets/tiles.tres" id="1_v63mp"]
 [ext_resource type="Script" path="res://Scripts/FloorTile.cs" id="2_3sgj8"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://c1w7b5qatdb3a" path="res://Scenes/exp_potion.tscn" id="3_h3ews"]
 [ext_resource type="PackedScene" uid="uid://csfd6bfkxkhg6" path="res://Scenes/health_potion.tscn" id="4_i6lvg"]
 [ext_resource type="PackedScene" uid="uid://b85tybiv71y68" path="res://Scenes/chest.tscn" id="5_4rtyk"]
+[ext_resource type="PackedScene" uid="uid://dre8blkwj1c44" path="res://Scenes/pots_npc.tscn" id="7_4hj3p"]
 
 [node name="level1" type="Node"]
 
@@ -34,3 +35,6 @@ position = Vector2(640, 583)
 
 [node name="Chest4" parent="." instance=ExtResource("5_4rtyk")]
 position = Vector2(688, 505)
+
+[node name="potsNpc" parent="." instance=ExtResource("7_4hj3p")]
+position = Vector2(732, 413)

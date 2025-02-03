@@ -1,0 +1,57 @@
+[gd_scene load_steps=7 format=3 uid="uid://dre8blkwj1c44"]
+
+[ext_resource type="Texture2D" uid="uid://0cijkcmn54cn" path="res://assets/chars_assets/rogues.png" id="1_ne4fa"]
+[ext_resource type="Script" path="res://Scripts/PotsNpc.cs" id="1_wj2dg"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8hn0e"]
+radius = 7.0
+height = 26.0
+
+[sub_resource type="Animation" id="Animation_dmw4f"]
+resource_name = "idle"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.333333, 0.666667, 1, 1.33333, 1.66667, 1.96667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1.006), Vector2(1.015, 1.021), Vector2(1.03, 1.036), Vector2(1.04, 1.046), Vector2(1.03, 1.036), Vector2(1.05, 1.056), Vector2(1, 1.007)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_grc3a"]
+_data = {
+"idle": SubResource("Animation_dmw4f")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_lmuxo"]
+radius = 24.0832
+
+[node name="potsNpc" type="CharacterBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -0.75)
+scale = Vector2(1, 1.006)
+texture = ExtResource("1_ne4fa")
+region_enabled = true
+region_rect = Rect2(135, 197, 18, 26)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("CapsuleShape2D_8hn0e")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_grc3a")
+}
+
+[node name="Area2D" type="Area2D" parent="." node_paths=PackedStringArray("_npcAnimation")]
+script = ExtResource("1_wj2dg")
+_npcAnimation = NodePath("../AnimationPlayer")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_lmuxo")

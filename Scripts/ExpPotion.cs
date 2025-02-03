@@ -1,14 +1,15 @@
 using Godot;
 using System;
+using System.ComponentModel.DataAnnotations;
+using System.Numerics;
 
 public partial class ExpPotion : Item
 {
-	public Label _label;
-	public int _lvl;
-	public override void Use()
-	{
-		_label.Text = $"Lvl: {_lvl}";
+	public override void Use(Player player)
+	{	
+		player._expValue += 50;
+		player._expBar.Value = player._expValue;
 		GD.Print("ExpPotion picked!");
-		base.Use();
+		base.Use(player);
 	}
 }
